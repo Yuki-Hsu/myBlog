@@ -50,28 +50,37 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="myBlog">
-<meta property="og:url" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;index.html">
+  <meta name="description" content="记一次路由器刷机过程 ▶ 前置条件斐讯 K2 已刷 Breed，可以刷第三方固件。 拔电源 –&amp;gt; 按住 reset –&amp;gt; 插电源线 –&amp;gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed ▶ 第三方固件🤩 PadavanPadavan 官方开源固件灯大（荒野无灯）的 mod 版 PadavanH 大（hiboy）的 mod 版 Padavan使用说明：页">
+<meta name="keywords" content="斐讯 K2,OpenWrt,Padavan,PSG1218">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斐讯 K2 刷机">
+<meta property="og:url" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA&#x2F;index.html">
 <meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="记一次路由器刷机过程 ▶ 前置条件斐讯 K2 已刷 Breed，可以刷第三方固件。 拔电源 –&amp;gt; 按住 reset –&amp;gt; 插电源线 –&amp;gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed ▶ 第三方固件🤩 PadavanPadavan 官方开源固件灯大（荒野无灯）的 mod 版 PadavanH 大（hiboy）的 mod 版 Padavan使用说明：页">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_system_startup.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network_lan.png">
+<meta property="og:updated_time" content="2019-12-06T16:18:25.979Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_.png">
 
-<link rel="canonical" href="http://l-qq.github.io/myBlog/">
+<link rel="canonical" href="http://l-qq.github.io/myBlog/2019/12/02/%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>myBlog</title>
+  <title>斐讯 K2 刷机 | myBlog</title>
   
 
 
@@ -176,10 +185,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://l-qq.github.io/myBlog/myBlog/2019/12/02/%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -193,8 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/myBlog/2019/12/02/%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA/" class="post-title-link" itemprop="url">斐讯 K2 刷机</a>
+          斐讯 K2 刷机
         </h1>
 
         <div class="post-meta">
@@ -236,7 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="记一次路由器刷机过程"><a href="#记一次路由器刷机过程" class="headerlink" title="记一次路由器刷机过程"></a>记一次路由器刷机过程</h2><hr>
+        <h2 id="记一次路由器刷机过程"><a href="#记一次路由器刷机过程" class="headerlink" title="记一次路由器刷机过程"></a>记一次路由器刷机过程</h2><hr>
 <h3 id="▶-前置条件"><a href="#▶-前置条件" class="headerlink" title="▶ 前置条件"></a>▶ 前置条件</h3><p>斐讯 K2 已刷 Breed，可以刷第三方固件。</p>
 <p>拔电源 –&gt; 按住 reset –&gt; 插电源线 –&gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed</p>
 <h3 id="▶-第三方固件"><a href="#▶-第三方固件" class="headerlink" title="▶ 第三方固件"></a>▶ 第三方固件</h3><h4 id="🤩-Padavan"><a href="#🤩-Padavan" class="headerlink" title="🤩 Padavan"></a>🤩 Padavan</h4><h5 id="Padavan-官方开源固件"><a href="#Padavan-官方开源固件" class="headerlink" title="Padavan 官方开源固件"></a><a href="https://bitbucket.org/padavan/rt-n56u/src/master/" target="_blank" rel="noopener">Padavan 官方开源固件</a></h5><h5 id="灯大（荒野无灯）的-mod-版-Padavan"><a href="#灯大（荒野无灯）的-mod-版-Padavan" class="headerlink" title="灯大（荒野无灯）的 mod 版 Padavan"></a><a href="http://p4davan.80x86.io/" target="_blank" rel="noopener">灯大（荒野无灯）的 mod 版 Padavan</a></h5><h5 id="H-大（hiboy）的-mod-版-Padavan"><a href="#H-大（hiboy）的-mod-版-Padavan" class="headerlink" title="H 大（hiboy）的 mod 版 Padavan"></a><a href="https://opt.cn2qq.com/padavan/" target="_blank" rel="noopener">H 大（hiboy）的 mod 版 Padavan</a></h5><p>使用说明：页面中搜索 「PSG1218」 -&gt; 选择合适的固件下载即可）</p>
@@ -316,94 +324,42 @@
 <p>LAN 口的 Ipv6 设置 📌</p>
 <img src="/myBlog/images/192.168.1.1_cgi-bin_luci_admin_network_network_lan.png" class="" title="lan config info " alt="picture miss">
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/myBlog/tags/%E6%96%90%E8%AE%AF-K2/" rel="tag"># 斐讯 K2</a>
+              <a href="/myBlog/tags/OpenWrt/" rel="tag"># OpenWrt</a>
+              <a href="/myBlog/tags/Padavan/" rel="tag"># Padavan</a>
+              <a href="/myBlog/tags/PSG1218/" rel="tag"># PSG1218</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://l-qq.github.io/myBlog/myBlog/2019/11/08/hello-world/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/myBlog/uploads/avatar.png">
-      <meta itemprop="name" content="止水">
-      <meta itemprop="description" content="">
-    </span>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/myBlog/2019/11/08/hello-world/" rel="next" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="myBlog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/myBlog/2019/11/08/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
+            <span class="post-nav-divider"></span>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-08 01:56:29" itemprop="dateCreated datePublished" datetime="2019-11-08T01:56:29+08:00">2019-11-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
       </footer>
+    
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -432,6 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记一次路由器刷机过程"><span class="nav-number">1.</span> <span class="nav-text">记一次路由器刷机过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-前置条件"><span class="nav-number">1.1.</span> <span class="nav-text">▶ 前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-第三方固件"><span class="nav-number">1.2.</span> <span class="nav-text">▶ 第三方固件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-Padavan"><span class="nav-number">1.2.1.</span> <span class="nav-text">🤩 Padavan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Padavan-官方开源固件"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Padavan 官方开源固件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#灯大（荒野无灯）的-mod-版-Padavan"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">灯大（荒野无灯）的 mod 版 Padavan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#H-大（hiboy）的-mod-版-Padavan"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">H 大（hiboy）的 mod 版 Padavan</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-OpenWrt"><span class="nav-number">1.2.2.</span> <span class="nav-text">🤩 OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OpenWrt-官方网站"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">OpenWrt 官方网站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Lean-大的-OpenWrt"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Lean 大的 OpenWrt</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-开启-Ipv6"><span class="nav-number">1.3.</span> <span class="nav-text">▶ 开启 Ipv6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法一"><span class="nav-number">1.3.1.</span> <span class="nav-text">🤩 方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法二"><span class="nav-number">1.3.2.</span> <span class="nav-text">🤩 方法二</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
