@@ -62,7 +62,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_system_startup.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network_lan.png">
-<meta property="og:updated_time" content="2019-12-06T16:18:25.979Z">
+<meta property="og:updated_time" content="2019-12-09T14:50:57.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_.png">
 
@@ -219,7 +219,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 00:18:25" itemprop="dateModified" datetime="2019-12-07T00:18:25+08:00">2019-12-07</time>
+                <time title="修改时间：2019-12-09 22:50:57" itemprop="dateModified" datetime="2019-12-09T22:50:57+08:00">2019-12-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,7 @@
 <li><a href="https://www.right.com.cn/forum/thread-842894-1-1.html" target="_blank" rel="noopener">2019.07.29 自编译 OpenWrt R9.7.6 By Lean 大雕 K2 固件分享</a></li>
 <li><a href="https://www.right.com.cn/forum/thread-534718-1-1.html" target="_blank" rel="noopener">2019.04.04 自编译 OpenWrt R9.4.2 By Lean 大雕 K2 固件分享</a></li>
 </ul>
-<h3 id="▶-开启-Ipv6"><a href="#▶-开启-Ipv6" class="headerlink" title="▶ 开启 Ipv6"></a>▶ 开启 Ipv6</h3><p>路由器开启 Ipv6 一直没有成功过，试过 hiboy 的 Pavadan 固件，用过 6relayd 方法，失败了。后来转战用 OpenWrt 的固件开启 Ipv6，试过网上的 <a href="https://www.right.com.cn/forum/thread-253712-1-1.html" target="_blank" rel="noopener">NAT66</a> 方法，失败了。其中有一次成功了（参考睿思的教程），但是后来有莫名其妙的坏掉了，记录此次成功的操作步骤如下：</p>
+<h3 id="▶-开启-Ipv6"><a href="#▶-开启-Ipv6" class="headerlink" title="▶ 开启 Ipv6"></a>▶ 开启 Ipv6</h3><p>路由器开启 Ipv6 一直没有成功过，试过 hiboy 的 Pavadan 固件，用过 6relayd 方法，失败了。后来转战用 OpenWrt 的固件开启 Ipv6，试过网上的 <a href="https://www.right.com.cn/forum/thread-253712-1-1.html" target="_blank" rel="noopener">NAT66</a> 方法，失败了。其中有一次成功了（参考睿思的教程），记录此次成功的操作步骤如下：</p>
 <ul>
 <li>网络环境：校园网（ipv4/ipv6）</li>
 <li>路由器设备：斐讯 K2</li>
@@ -311,7 +311,8 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh /etc/rc.common</span></span><br><span class="line"></span><br><span class="line">START=75</span><br><span class="line"></span><br><span class="line">res=`ip -6 route | grep <span class="string">"default from"</span>`</span><br><span class="line">gateway=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $5&#125;'</span>`</span><br><span class="line">interface=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $7&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> != ifup ]; <span class="keyword">then</span></span><br><span class="line">    ip -6 r add default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span><br><span class="line">    <span class="keyword">if</span> !(ip6tables-save -t nat | grep -q <span class="string">"v6NAT"</span>); <span class="keyword">then</span></span><br><span class="line">        ip6tables -t nat -A POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    ip6tables -t nat -D POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span><br><span class="line">    ip -6 r del default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
-<p>有一次按照方法一成功了，但是切换校园网账号后莫名其妙的坏掉了。后来不断结合方法一和方法二，成功了，步骤如上（方法一 + 方法二），删除线为两个方法结合时删掉的步骤。成功后的界面如下:</p>
+<p>有一次按照方法一成功了，但是切换校园网账号后，联网设备又获取不到 ipv6 的地址了。</p>
+<p>后来不断地结合方法一和方法二，<del>成功了</del>，步骤如上（方法一 + 方法二），删除线为两个方法结合时所删掉的步骤。成功后的界面如下:</p>
 <p>系统信息 📌</p>
 <img src="/myBlog/images/192.168.1.1_cgi-bin_luci_.png" class="" title="router system info " alt="picture miss">
 
@@ -323,6 +324,28 @@
 
 <p>LAN 口的 Ipv6 设置 📌</p>
 <img src="/myBlog/images/192.168.1.1_cgi-bin_luci_admin_network_network_lan.png" class="" title="lan config info " alt="picture miss">
+
+<h4 id="😂-莫名其妙的又坏掉了"><a href="#😂-莫名其妙的又坏掉了" class="headerlink" title="😂 莫名其妙的又坏掉了"></a>😂 莫名其妙的又坏掉了</h4><p>现象：</p>
+<ul>
+<li>似乎是每次 WAN 口的 IP 发生变化后，后端的设备就收不到 ipv6 的地址了（刚好解释了前面切换校园网账号导致联网设备又获取不到 ipv6 的地址）</li>
+<li>ssh 进路由器，可以 ping 通 ipv6 的域名（ipv6.google.com）</li>
+</ul>
+<p>解决办法：重启 nat6</p>
+<p>通过浏览器登录到 OpenWrt 的 LuCI 界面 –&gt; System –&gt; Startup –&gt; nat6 –&gt; Restart</p>
+<h3 id="▶-可供参考的文章"><a href="#▶-可供参考的文章" class="headerlink" title="▶ 可供参考的文章"></a>▶ 可供参考的文章</h3><h4 id="🤩-OpenWrt-相关"><a href="#🤩-OpenWrt-相关" class="headerlink" title="🤩 OpenWrt 相关"></a>🤩 OpenWrt 相关</h4><ul>
+<li><a href="http://blog.kompaz.win/2017/02/22/OpenWRT%20IPv6%20%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">OpenWRT IPv6 三种配置方式</a></li>
+<li><a href="https://cs3cx4g.github.io/2018/12/06/ipv6%E8%BD%AC%E5%8F%91/" target="_blank" rel="noopener">OpenWrt/LEDE 内网转发 ipv6</a></li>
+<li><a href="https://blog.csdn.net/u014436214/article/details/75691156" target="_blank" rel="noopener">同济大学 OpenWrt 路由器 ipv6 教程（新手导向）</a></li>
+<li><a href="https://i-meto.com/openwrt-ipv6/2/" target="_blank" rel="noopener">OpenWrt 内网下发 IPv6</a></li>
+<li><a href="https://youngwilliamz.github.io/post/openwrt-ipv6-relay/" target="_blank" rel="noopener">OpenWRT 18.06 IPv6 开启 Relay，LAN 口获取 IPv6 公网地址</a></li>
+<li><a href="https://www.right.com.cn/forum/thread-329760-1-1.html" target="_blank" rel="noopener">OpenWrt 基础使用普及篇</a></li>
+</ul>
+<h4 id="🤩-Padavan-相关"><a href="#🤩-Padavan-相关" class="headerlink" title="🤩 Padavan 相关"></a>🤩 Padavan 相关</h4><ul>
+<li><a href="https://www.jianshu.com/p/cb51fb0fb2ac" target="_blank" rel="noopener">老毛子固件使用说明</a></li>
+<li><a href="https://www.cnblogs.com/dafang/p/7289687.html" target="_blank" rel="noopener">极路由 斐讯K2 Newifi 华硕固件 实现 ipv6 穿透方法</a></li>
+<li><a href="https://www.jianshu.com/p/eb07eaac6167" target="_blank" rel="noopener">Padavan/Openwrt/LEDE 下实现 ipv6 nat/napt66</a></li>
+<li><a href="https://blog.csdn.net/myc0523/article/details/100869863" target="_blank" rel="noopener">利用 H 大的 Padavan 老毛子固件实现深澜校园网下原生 ipv6 NAT</a></li>
+</ul>
 
     </div>
 
@@ -388,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记一次路由器刷机过程"><span class="nav-number">1.</span> <span class="nav-text">记一次路由器刷机过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-前置条件"><span class="nav-number">1.1.</span> <span class="nav-text">▶ 前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-第三方固件"><span class="nav-number">1.2.</span> <span class="nav-text">▶ 第三方固件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-Padavan"><span class="nav-number">1.2.1.</span> <span class="nav-text">🤩 Padavan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Padavan-官方开源固件"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Padavan 官方开源固件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#灯大（荒野无灯）的-mod-版-Padavan"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">灯大（荒野无灯）的 mod 版 Padavan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#H-大（hiboy）的-mod-版-Padavan"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">H 大（hiboy）的 mod 版 Padavan</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-OpenWrt"><span class="nav-number">1.2.2.</span> <span class="nav-text">🤩 OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OpenWrt-官方网站"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">OpenWrt 官方网站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Lean-大的-OpenWrt"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Lean 大的 OpenWrt</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-开启-Ipv6"><span class="nav-number">1.3.</span> <span class="nav-text">▶ 开启 Ipv6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法一"><span class="nav-number">1.3.1.</span> <span class="nav-text">🤩 方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法二"><span class="nav-number">1.3.2.</span> <span class="nav-text">🤩 方法二</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记一次路由器刷机过程"><span class="nav-number">1.</span> <span class="nav-text">记一次路由器刷机过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-前置条件"><span class="nav-number">1.1.</span> <span class="nav-text">▶ 前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-第三方固件"><span class="nav-number">1.2.</span> <span class="nav-text">▶ 第三方固件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-Padavan"><span class="nav-number">1.2.1.</span> <span class="nav-text">🤩 Padavan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Padavan-官方开源固件"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Padavan 官方开源固件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#灯大（荒野无灯）的-mod-版-Padavan"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">灯大（荒野无灯）的 mod 版 Padavan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#H-大（hiboy）的-mod-版-Padavan"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">H 大（hiboy）的 mod 版 Padavan</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-OpenWrt"><span class="nav-number">1.2.2.</span> <span class="nav-text">🤩 OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OpenWrt-官方网站"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">OpenWrt 官方网站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Lean-大的-OpenWrt"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Lean 大的 OpenWrt</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-开启-Ipv6"><span class="nav-number">1.3.</span> <span class="nav-text">▶ 开启 Ipv6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法一"><span class="nav-number">1.3.1.</span> <span class="nav-text">🤩 方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-方法二"><span class="nav-number">1.3.2.</span> <span class="nav-text">🤩 方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#😂-莫名其妙的又坏掉了"><span class="nav-number">1.3.3.</span> <span class="nav-text">😂 莫名其妙的又坏掉了</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▶-可供参考的文章"><span class="nav-number">1.4.</span> <span class="nav-text">▶ 可供参考的文章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-OpenWrt-相关"><span class="nav-number">1.4.1.</span> <span class="nav-text">🤩 OpenWrt 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🤩-Padavan-相关"><span class="nav-number">1.4.2.</span> <span class="nav-text">🤩 Padavan 相关</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
