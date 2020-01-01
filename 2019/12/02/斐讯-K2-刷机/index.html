@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/myBlog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/myBlog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/myBlog/images/favicon-16x16-next.png">
@@ -50,21 +50,26 @@
   };
 </script>
 
-  <meta name="description" content="记一次路由器刷机过程 ▶ 前置条件斐讯 K2 已刷 Breed，可以刷第三方固件。 拔电源 –&amp;gt; 按住 reset –&amp;gt; 插电源线 –&amp;gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed ▶ 第三方固件🤩 PadavanPadavan 官方开源固件灯大（荒野无灯）的 mod 版 PadavanH 大（hiboy）的 mod 版 Padavan使用说明：页">
-<meta name="keywords" content="斐讯 K2,OpenWrt,Padavan,PSG1218">
+  <meta name="description" content="记一次路由器刷机过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="斐讯 K2 刷机">
-<meta property="og:url" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA&#x2F;index.html">
+<meta property="og:url" content="http://l-qq.github.io/myBlog/2019/12/02/%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA/index.html">
 <meta property="og:site_name" content="myBlog">
-<meta property="og:description" content="记一次路由器刷机过程 ▶ 前置条件斐讯 K2 已刷 Breed，可以刷第三方固件。 拔电源 –&amp;gt; 按住 reset –&amp;gt; 插电源线 –&amp;gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed ▶ 第三方固件🤩 PadavanPadavan 官方开源固件灯大（荒野无灯）的 mod 版 PadavanH 大（hiboy）的 mod 版 Padavan使用说明：页">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_system_startup.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_admin_network_network_lan.png">
-<meta property="og:updated_time" content="2019-12-09T14:50:57.367Z">
+<meta property="og:description" content="记一次路由器刷机过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://l-qq.github.io/myBlog/images/192.168.1.1_cgi-bin_luci_.png">
+<meta property="og:image" content="http://l-qq.github.io/myBlog/images/192.168.1.1_cgi-bin_luci_admin_system_startup.png">
+<meta property="og:image" content="http://l-qq.github.io/myBlog/images/192.168.1.1_cgi-bin_luci_admin_network_network.png">
+<meta property="og:image" content="http://l-qq.github.io/myBlog/images/192.168.1.1_cgi-bin_luci_admin_network_network_lan.png">
+<meta property="article:published_time" content="2019-12-02T10:55:35.000Z">
+<meta property="article:modified_time" content="2020-01-01T04:01:04.133Z">
+<meta property="article:author" content="止水">
+<meta property="article:tag" content="斐讯 K2">
+<meta property="article:tag" content="OpenWrt">
+<meta property="article:tag" content="Padavan">
+<meta property="article:tag" content="PSG1218">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;l-qq.github.io&#x2F;myBlog&#x2F;images&#x2F;192.168.1.1_cgi-bin_luci_.png">
+<meta name="twitter:image" content="http://l-qq.github.io/myBlog/images/192.168.1.1_cgi-bin_luci_.png">
 
 <link rel="canonical" href="http://l-qq.github.io/myBlog/2019/12/02/%E6%96%90%E8%AE%AF-K2-%E5%88%B7%E6%9C%BA/">
 
@@ -150,17 +155,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/myBlog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">4</span></a>
+    <a href="/myBlog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/myBlog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">1</span></a>
+    <a href="/myBlog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">2</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/myBlog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">2</span></a>
+    <a href="/myBlog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">3</span></a>
 
   </li>
   </ul>
@@ -219,7 +224,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-09 22:50:57" itemprop="dateModified" datetime="2019-12-09T22:50:57+08:00">2019-12-09</time>
+                <time title="修改时间：2020-01-01 12:01:04" itemprop="dateModified" datetime="2020-01-01T12:01:04+08:00">2020-01-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,6 +250,8 @@
 
       
         <h2 id="记一次路由器刷机过程"><a href="#记一次路由器刷机过程" class="headerlink" title="记一次路由器刷机过程"></a>记一次路由器刷机过程</h2><hr>
+<a id="more"></a>
+
 <h3 id="▶-前置条件"><a href="#▶-前置条件" class="headerlink" title="▶ 前置条件"></a>▶ 前置条件</h3><p>斐讯 K2 已刷 Breed，可以刷第三方固件。</p>
 <p>拔电源 –&gt; 按住 reset –&gt; 插电源线 –&gt; 5 秒后松开 reset，打开 192.168.1.1，进入 Breed</p>
 <h3 id="▶-第三方固件"><a href="#▶-第三方固件" class="headerlink" title="▶ 第三方固件"></a>▶ 第三方固件</h3><h4 id="🤩-Padavan"><a href="#🤩-Padavan" class="headerlink" title="🤩 Padavan"></a>🤩 Padavan</h4><h5 id="Padavan-官方开源固件"><a href="#Padavan-官方开源固件" class="headerlink" title="Padavan 官方开源固件"></a><a href="https://bitbucket.org/padavan/rt-n56u/src/master/" target="_blank" rel="noopener">Padavan 官方开源固件</a></h5><h5 id="灯大（荒野无灯）的-mod-版-Padavan"><a href="#灯大（荒野无灯）的-mod-版-Padavan" class="headerlink" title="灯大（荒野无灯）的 mod 版 Padavan"></a><a href="http://p4davan.80x86.io/" target="_blank" rel="noopener">灯大（荒野无灯）的 mod 版 Padavan</a></h5><h5 id="H-大（hiboy）的-mod-版-Padavan"><a href="#H-大（hiboy）的-mod-版-Padavan" class="headerlink" title="H 大（hiboy）的 mod 版 Padavan"></a><a href="https://opt.cn2qq.com/padavan/" target="_blank" rel="noopener">H 大（hiboy）的 mod 版 Padavan</a></h5><p>使用说明：页面中搜索 「PSG1218」 -&gt; 选择合适的固件下载即可）</p>
@@ -284,7 +291,7 @@
 </li>
 <li>然后写个 nat6.sh，每次开机都执行（加到/etc/rc.local中去就行），脚本内容如下：</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/bin/ash</span></span><br><span class="line">line=0</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$line</span> -eq 0 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        sleep 10</span><br><span class="line">        line=`route -A inet6 | grep ::/0 | awk <span class="string">'END&#123;print NR&#125;'</span>`</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ip6tables -t nat -I POSTROUTING -s `uci get network.globals.ula_prefix` -j MASQUERADE</span><br><span class="line">route -A inet6 add 2000::/3 `route -A inet6 | grep ::/0 | awk <span class="string">'NR==1&#123;print "gw "$2" dev "$7&#125;'</span>`</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#/bin/ash</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">line=0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> [ <span class="variable">$line</span> -eq 0 ]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        sleep 10</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        line=`route -A inet6 | grep ::/0 | awk <span class="string">'END&#123;print NR&#125;'</span>`</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">done</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">ip6tables -t nat -I POSTROUTING -s `uci get network.globals.ula_prefix` -j MASQUERADE</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">route -A inet6 add 2000::/3 `route -A inet6 | grep ::/0 | awk <span class="string">'NR==1&#123;print "gw "$2" dev "$7&#125;'</span>`</span></pre></td></tr></table></figure>
 
 <p>参考：</p>
 <ul>
@@ -294,22 +301,22 @@
 <li>安装 nat6 模块，<code>opkg update &amp;&amp; opkg install kmod-ipt-nat6</code></li>
 <li>网络配置</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uci <span class="built_in">set</span> network.globals.ula_prefix=<span class="string">"<span class="variable">$(uci get network.globals.ula_prefix | sed 's/^./d/')</span>"</span></span><br><span class="line">uci commit network</span><br><span class="line">uci <span class="built_in">set</span> dhcp.lan.ra_default=<span class="string">'1'</span></span><br><span class="line">uci commit dhcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">uci <span class="built_in">set</span> network.globals.ula_prefix=<span class="string">"<span class="variable">$(uci get network.globals.ula_prefix | sed 's/^./d/')</span>"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">uci commit network</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">uci <span class="built_in">set</span> dhcp.lan.ra_default=<span class="string">'1'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">uci commit dhcp</span></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>添加 nat6 脚本（将后续脚本内容填入 /etc/init.d/nat6 中）</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/init.d/nat6</span><br><span class="line">chmod +x /etc/init.d/nat6</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">touch /etc/init.d/nat6</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">chmod +x /etc/init.d/nat6</span></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>启用并重启</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/nat6 <span class="built_in">enable</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">/etc/init.d/nat6 <span class="built_in">enable</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">reboot</span></pre></td></tr></table></figure>
 
 <ol start="5">
 <li>nat6 脚本内容</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh /etc/rc.common</span></span><br><span class="line"></span><br><span class="line">START=75</span><br><span class="line"></span><br><span class="line">res=`ip -6 route | grep <span class="string">"default from"</span>`</span><br><span class="line">gateway=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $5&#125;'</span>`</span><br><span class="line">interface=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $7&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> != ifup ]; <span class="keyword">then</span></span><br><span class="line">    ip -6 r add default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span><br><span class="line">    <span class="keyword">if</span> !(ip6tables-save -t nat | grep -q <span class="string">"v6NAT"</span>); <span class="keyword">then</span></span><br><span class="line">        ip6tables -t nat -A POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    ip6tables -t nat -D POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span><br><span class="line">    ip -6 r del default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh /etc/rc.common</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">START=75</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">res=`ip -6 route | grep <span class="string">"default from"</span>`</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">gateway=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $5&#125;'</span>`</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">interface=`<span class="built_in">echo</span> <span class="variable">$res</span> | awk <span class="string">'&#123;print $7&#125;'</span>`</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> != ifup ]; <span class="keyword">then</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    ip -6 r add default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> !(ip6tables-save -t nat | grep -q <span class="string">"v6NAT"</span>); <span class="keyword">then</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        ip6tables -t nat -A POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">fi</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    ip6tables -t nat -D POSTROUTING -o <span class="variable">$interface</span> -m comment --comment <span class="string">"v6NAT"</span> -j MASQUERADE</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    ip -6 r del default via <span class="variable">$gateway</span> dev <span class="variable">$interface</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">fi</span></span></pre></td></tr></table></figure>
 
 <p>有一次按照方法一成功了，但是切换校园网账号后，联网设备又获取不到 ipv6 的地址了。</p>
 <p>后来不断地结合方法一和方法二，<del>成功了</del>，步骤如上（方法一 + 方法二），删除线为两个方法结合时所删掉的步骤。成功后的界面如下:</p>
@@ -373,6 +380,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/myBlog/2020/01/01/Google-Drive-%E6%89%A9%E5%AE%B9/" rel="prev" title="Google Drive 扩容">
+                  Google Drive 扩容 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -427,20 +437,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/myBlog/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/myBlog/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/myBlog/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -473,13 +483,13 @@
 <div class="copyright">
   
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">止水</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
@@ -507,9 +517,17 @@
   <script src="/myBlog/lib/anime.min.js"></script>
   <script src="/myBlog/lib/velocity/velocity.min.js"></script>
   <script src="/myBlog/lib/velocity/velocity.ui.min.js"></script>
-<script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/motion.js"></script>
+
+<script src="/myBlog/js/utils.js"></script>
+
+<script src="/myBlog/js/motion.js"></script>
+
+
 <script src="/myBlog/js/schemes/pisces.js"></script>
+
+
 <script src="/myBlog/js/next-boot.js"></script>
+
 
 
 
