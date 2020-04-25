@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/myBlog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/myBlog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/myBlog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/myBlog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/myBlog/css/main.css">
+
+
+<link rel="stylesheet" href="/myBlog/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/myBlog/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="记一次部署云端 Django 应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Heroku 部署 Python 应用（Django）">
+<meta property="og:url" content="http://l-qq.github.io/myBlog/2020/04/24/Heroku-%E9%83%A8%E7%BD%B2-Python-%E5%BA%94%E7%94%A8%EF%BC%88Django%EF%BC%89/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="记一次部署云端 Django 应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-24T09:44:21.000Z">
+<meta property="article:modified_time" content="2020-04-25T04:04:05.570Z">
+<meta property="article:author" content="止水">
+<meta property="article:tag" content="Heroku">
+<meta property="article:tag" content="Django">
+<meta property="article:tag" content="部署">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://l-qq.github.io/myBlog/2020/04/24/Heroku-%E9%83%A8%E7%BD%B2-Python-%E5%BA%94%E7%94%A8%EF%BC%88Django%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Heroku 部署 Python 应用（Django） | myBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/myBlog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">myBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/myBlog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/myBlog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/myBlog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/myBlog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">6</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://l-qq.github.io/myBlog/myBlog/2020/04/24/Heroku-%E9%83%A8%E7%BD%B2-Python-%E5%BA%94%E7%94%A8%EF%BC%88Django%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/myBlog/uploads/avatar.png">
+      <meta itemprop="name" content="止水">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="myBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Heroku 部署 Python 应用（Django）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-24 17:44:21" itemprop="dateCreated datePublished" datetime="2020-04-24T17:44:21+08:00">2020-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-25 12:04:05" itemprop="dateModified" datetime="2020-04-25T12:04:05+08:00">2020-04-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/myBlog/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="记一次部署云端-Django-应用"><a href="#记一次部署云端-Django-应用" class="headerlink" title="记一次部署云端 Django 应用"></a>记一次部署云端 Django 应用</h2><hr>
+<a id="more"></a>
+
+<h3 id="Heroku-准备"><a href="#Heroku-准备" class="headerlink" title="Heroku 准备"></a>Heroku 准备</h3><ol>
+<li><p>访问 <a href="https://heroku.com" target="_blank" rel="noopener">https://heroku.com</a> 注册 Heroku 账号</p>
+</li>
+<li><p>安装 Heroku CLI，该工具用来后续的部署以及管理 Heroku 账号中托管的应用程序</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install heroku-cli</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用命令行登录 Heroku 账号，让本机在执行 <code>heroku</code> 命令时知道所对应的 Heroku 账号</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku login</span><br></pre></td></tr></table></figure>
+
+<p>该命令会打开浏览器进行 Heroku 账号的登陆验证，之后就可以使用 <code>heroku</code> 管理自己的账号及应用程序，认证信息存储在用户家目录下的 <strong>_netrc</strong> 文件中</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">heroku apps  <span class="comment"># 查看账户部署的所有应用</span></span><br><span class="line">git clone https://git.heroku.com/&lt;app_name&gt;.git  <span class="comment"># 克隆应用程序app_name的源代码到本地</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不先 <code>heroku login</code> 是无法成功 <code>git clone</code> 仓库，会报如下错误</p>
+<blockquote>
+<p>Do not authenticate with username and password using git.<br>Run <code>heroku login</code> to update your credentials, then retry the git command.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="为部署到-Heroku-对-Django-项目修改"><a href="#为部署到-Heroku-对-Django-项目修改" class="headerlink" title="为部署到 Heroku 对 Django 项目修改"></a>为部署到 Heroku 对 Django 项目修改</h3><p>可以使用官方教程中配置好的 Django 项目</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/heroku/python-getting-started.git</span><br><span class="line">cd python-getting-started</span><br></pre></td></tr></table></figure>
+
+<p>如果使用该项目则直接转至<a href="#%e9%83%a8%e7%bd%b2">部署</a>，如果是自己的 <a href="https://github.com/l-qq/Python-Crash-Course/tree/master/Django" target="_blank" rel="noopener">Django 项目</a>，则可以参考官方项目进行以下修改</p>
+<ul>
+<li><p>安装必要的包</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install gunicorn  <span class="comment"># 一个服务器软件,heroku使用它做web服务器</span></span><br><span class="line">pip install django-heroku</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>项目根目录增加 <strong>requirements.txt</strong> 文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt</span><br></pre></td></tr></table></figure>
+
+<p>部署到 Heroku 时，Heroku 使用该文件安装依赖 <code>pip install -r requirements.txt</code> 并运行应用</p>
+<blockquote>
+<p>Heroku recognizes an app as a Python app by looking for key files. Including a requirements.txt in the root directory is one way for Heroku to recognize your Python app.</p>
+</blockquote>
+</li>
+<li><p>项目根目录增加 <strong>runtime.txt</strong> 文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python --version  <span class="comment"># 查看本机使用的python版本</span></span><br><span class="line">Python <span class="number">3.8</span>.<span class="number">2</span></span><br><span class="line">echo python-<span class="number">3.8</span>.<span class="number">2</span> &gt; runtime.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为部署到 Heroku 而修改项目 <strong>settings.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> django_heroku</span><br><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">'staticfiles'</span>)</span><br><span class="line">django_heroku.settings(locals())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为部署到 Heroku 而修改项目 <strong>wsgi.py</strong></p>
+</li>
+<li><p>项目根目录增加 <strong>Procfile</strong> 文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"web: gunicorn &lt;project_name&gt;.wsgi --log-file -"</span> &gt; Procfile  <span class="comment"># &lt;project_name&gt;替换为包含wsgi.py文件的项目名</span></span><br></pre></td></tr></table></figure>
+
+<p>这行配置让 Heroku 将 gunicorn 用作服务器，并使用 <code>./&lt;project_name&gt;/wsgi.py</code> 中的设置来启动应用程序。标志 <code>log-file</code> 告诉 Heroku 应将哪些类型的事件写入日志</p>
+<blockquote>
+<p>Use a Procfile, a text file in the root directory of your application, to explicitly declare what command should be executed to start your app.</p>
+</blockquote>
+<p>gunicorn 不能在 Windows 上运行，为了可以 <code>heroku local</code> 本地验证应用程序，需额外增加 <strong>Procfile.windows</strong> 文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"web: python manage.py runserver 0.0.0.0:5000"</span> &gt; Procfile.windows</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建用于存储静态文件的目录</p>
+<p>在 Heroku 上，Django 搜集所有的静态文件，并将它们放在一个地方，以便能够高效地管理它们。在项目配置文件的目录下新建 <code>static/</code> 目录，并添加占位文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir .\&lt;project_name&gt;\static  <span class="comment"># &lt;project_name&gt;替换为包含settings.py文件的项目名</span></span><br><span class="line">echo <span class="string">"placeholder"</span> &gt; .\&lt;project_name&gt;\static\placeholder.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让 Heroku 在本地运行程序并检查</p>
+<p>首先解决一个 bug，上述的 <code>&gt;</code> 重定向在 PowerShell 中执行，生成的文件编码为 UTF-16 LE（如果在 CMD 中执行，生成的文件编码则为 UFT-8），执行 <code>heroku local</code> 会出现错误。所以先确保 <strong>requirements.txt</strong>，<strong>placeholder.txt</strong>，<strong>Procfile</strong>，<strong>Procfile.windows</strong> 和 <strong>runtime.txt</strong> 文件的编码为 UTF-8，然后操作如下</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py collectstatic  <span class="comment"># 收集生成静态文件</span></span><br><span class="line">heroku local web -f Procfile.windows  <span class="comment"># 使用指定的Procfile本地运行</span></span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问：<a href="http://localhost:5000/" target="_blank" rel="noopener">http://localhost:5000/</a></p>
+</li>
+</ul>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ol>
+<li><p>使用 Git 跟踪项目文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>创建 <code>.gitignore</code> 文件，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ll_env&#x2F;</span><br><span class="line">*.pyc</span><br><span class="line">__pycache__&#x2F;</span><br><span class="line">staticfiles</span><br><span class="line">.env</span><br><span class="line">*.sqlite3</span><br></pre></td></tr></table></figure>
+
+<p>提交一个版本：<code>git add .</code> <code>git commit -m</code>，查看远程仓库 <code>git remote -v</code> 此时为空</p>
+</li>
+<li><p>Heroku 创建应用并部署</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku create</span><br></pre></td></tr></table></figure>
+
+<p>创建空的 App，查看远程仓库 <code>git remote -v</code> 此时已关联到该 App（如果先创建 <code>heroku create</code>，后 <code>git init</code>，则 <code>git push</code> 时出错，无法推送到该关联的 App）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku master</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="使用-Heroku-CLI-管理部署的应用"><a href="#使用-Heroku-CLI-管理部署的应用" class="headerlink" title="使用 Heroku CLI 管理部署的应用"></a>使用 Heroku CLI 管理部署的应用</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">heroku open  <span class="comment"># 打开该仓库关联的App</span></span><br><span class="line">heroku logs --tail  <span class="comment"># 查看该App的访问日志</span></span><br><span class="line">heroku ps  <span class="comment"># check how many dynos are running</span></span><br><span class="line">heroku ps:scale web=<span class="number">1</span>  <span class="comment"># 将该App中类型为web的dynos的数量改为1（如果为0则访问App出错）</span></span><br><span class="line">heroku run python manage.py shell  <span class="comment"># 开启一个类型为run的dynos运行python shell</span></span><br><span class="line">heroku run bash  <span class="comment"># 开启一个类型为run的dynos运行bash shell</span></span><br><span class="line">heroku addons  <span class="comment"># 查看App使用的附件（Heroku默认使用Postgres数据库，数据库也是一个addons）</span></span><br><span class="line">heroku pg  <span class="comment"># manage postgresql databases</span></span><br><span class="line">heroku config:set TIMES=<span class="number">2</span>  <span class="comment"># set the config var on Heroku（也可以在项目根目录创建.env文件并写入TIMES=2</span></span><br><span class="line">heroku config  <span class="comment"># Listing the config vars for your app will display the URL that your app is using to connect to the database</span></span><br><span class="line">heroku apps:destroy  --app &lt;AppName&gt;  <span class="comment"># 将指定项目&lt;AppName&gt;从Heroku删除</span></span><br></pre></td></tr></table></figure>
+
+<p>上述部署的应用虽然有数据库的功能，但数据库为空，为了能访问并使用数据库，需要生成新的表，执行以下命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">heroku run python manage.py migrate</span><br><span class="line">heroku pg:psql  <span class="comment"># 如果本地机器安装了Postgres，则可以执行这个命令连接数据库</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="改进-Heroku-部署"><a href="#改进-Heroku-部署" class="headerlink" title="改进 Heroku 部署"></a>改进 Heroku 部署</h3><ol>
+<li><p>在 Heroku 上创建超级用户</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">heroku run bash</span><br><span class="line">ls</span><br><span class="line">python manage.py createsuperuser</span><br><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建对用户友好的 URL</p>
+<p>Heroku 默认创建的应用名字为两个随机单词加一串数字，不够友好，执行以下命令修改 App 的名字</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku apps:rename &lt;NewAppName&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>确保项目安全</p>
+<p>修改项目 <strong>settings.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALLOWED_HOSTS = [<span class="string">'NewAppName.herokuapp.com'</span>]  <span class="comment"># NewAppName替换为应用程序名字</span></span><br><span class="line">DEBUG = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建自定义错误页面</p>
+<p>在项目配置文件的目录下新建 <code>templates/</code> 目录，并添加 <code>404.html</code> <code>500.html</code></p>
+<p>使用 Django 的快捷函数 <code>get_object_or_404()</code> 从数据库获取请求的对象，替换 <code>Models.objects.get()</code> 方法</p>
+</li>
+<li><p>继续开发</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># 修改了一些文件</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"commit message"</span></span><br><span class="line">git push heroku master</span><br><span class="line">heroku run python manage.py migrate  <span class="comment"># 如果迁移了数据库则执行</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://devcenter.heroku.com/articles/getting-started-with-python" target="_blank" rel="noopener">Getting Started on Heroku with Python</a><br><a href="https://book.douban.com/subject/26829016/" target="_blank" rel="noopener">python编程：从入门到实践</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/myBlog/tags/Heroku/" rel="tag"># Heroku</a>
+              <a href="/myBlog/tags/Django/" rel="tag"># Django</a>
+              <a href="/myBlog/tags/%E9%83%A8%E7%BD%B2/" rel="tag"># 部署</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/myBlog/2020/04/22/gitignore-%E6%96%87%E4%BB%B6%E6%97%A0%E6%95%88/" rel="next" title=".gitignore 文件无效">
+                  <i class="fa fa-chevron-left"></i> .gitignore 文件无效
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记一次部署云端-Django-应用"><span class="nav-number">1.</span> <span class="nav-text">记一次部署云端 Django 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Heroku-准备"><span class="nav-number">1.1.</span> <span class="nav-text">Heroku 准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为部署到-Heroku-对-Django-项目修改"><span class="nav-number">1.2.</span> <span class="nav-text">为部署到 Heroku 对 Django 项目修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">1.3.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Heroku-CLI-管理部署的应用"><span class="nav-number">1.4.</span> <span class="nav-text">使用 Heroku CLI 管理部署的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进-Heroku-部署"><span class="nav-number">1.5.</span> <span class="nav-text">改进 Heroku 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="止水"
+    src="/myBlog/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">止水</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/myBlog/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/myBlog/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/myBlog/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/l-qq" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;l-qq" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/liuqi671" title="Twitter &amp;rarr; https:&#x2F;&#x2F;twitter.com&#x2F;liuqi671" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">止水</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/myBlog/lib/anime.min.js"></script>
+  <script src="/myBlog/lib/velocity/velocity.min.js"></script>
+  <script src="/myBlog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/myBlog/js/utils.js"></script>
+
+<script src="/myBlog/js/motion.js"></script>
+
+
+<script src="/myBlog/js/schemes/pisces.js"></script>
+
+
+<script src="/myBlog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
